@@ -1,0 +1,47 @@
+{
+  "name": "buildable",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "buildable/src",
+  "prefix": "package-test",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "buildable/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "buildable/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "buildable/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "buildable/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["buildable/**/*.ts", "buildable/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}
